@@ -1,0 +1,75 @@
+{{ block title }}
+Round {{ round_number }} of {{ num_rounds }}
+{{ endblock }}
+
+{{ block styles }}
+<style>
+.card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:0; margin-bottom:16px; max-width:680px; overflow:hidden; }
+.topbar { display:flex; justify-content:space-between; align-items:center; max-width:680px; margin-bottom:8px; font-size:14px; color:#444; }
+.topbar strong { color:#111; }
+.progress-track { height:4px; background:#eee; border-radius:2px; margin-bottom:16px; max-width:680px; }
+.progress-fill { height:100%; background:#185FA5; border-radius:2px; }
+.stock-row { padding:14px 22px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+.stock-row:last-child { border-bottom:none; }
+.stock-row.sold { opacity:0.45; }
+.stock-name { font-weight:500; font-size:14px; margin-bottom:3px; }
+.stock-sub { color:#888; font-size:12px; margin-bottom:5px; }
+.badge-gain { background:#EAF3DE; color:#27500A; padding:2px 10px; border-radius:14px; font-size:12px; font-weight:600; }
+.badge-loss { background:#FDECEA; color:#A32D2D; padding:2px 10px; border-radius:14px; font-size:12px; font-weight:600; }
+.decision-group { display:flex; gap:8px; flex-shrink:0; }
+.decision-group label {
+  padding:7px 16px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer;
+  border:1px solid; user-select:none;
+}
+.dec-sell { border-color:#A32D2D; background:#FDECEA; color:#A32D2D; }
+.dec-sell:has(input:checked) { background:#A32D2D; color:#fff; }
+.dec-hold { border-color:#27500A; background:#EAF3DE; color:#27500A; }
+.dec-hold:has(input:checked) { background:#27500A; color:#fff; }
+.decision-group input { position:absolute; opacity:0; pointer-events:none; }
+.sold-note { font-size:12px; color:#888; font-style:italic; }
+.otree-btn-next { margin-top:14px; }
+</style>
+{{ endblock }}
+
+{{ block content }}
+<div class="topbar">
+  <span>Round <strong>{{ round_number }}</strong> of {{ num_rounds }} &mdash; decide for each active stock</span>
+  <span>Total: <strong>&euro;{{ portfolio_value }}</strong></span>
+</div>
+<div class="progress-track"><div class="progress-fill" style="width: {{ progress_pct }}%;"></div></div>
+
+<div class="card">
+  {{ for s in active_stocks }}
+  <div class="stock-row">
+    <div>
+      <div class="stock-name">{{ s.name }}</div>
+      <div class="stock-sub">{{ shares }} shares &middot; Bought at &euro;{{ s.buy }} &middot; Now &euro;{{ s.current }}</div>
+      {{ if s.is_gain }}
+        <span class="badge-gain">+{{ s.pnl_eur }}&euro; (+{{ s.pnl_pct }}%)</span>
+      {{ else }}
+        <span class="badge-loss">{{ s.pnl_eur }}&euro; ({{ s.pnl_pct }}%)</span>
+      {{ endif }}
+    </div>
+    <div class="decision-group">
+      <label class="dec-sell">
+        <input type="radio" name="decision_{{ s.id }}" value="sell"> Sell
+      </label>
+      <label class="dec-hold">
+        <input type="radio" name="decision_{{ s.id }}" value="hold"> Hold
+      </label>
+    </div>
+  </div>
+  {{ endfor }}
+
+  {{ for s in sold_stocks }}
+  <div class="stock-row sold">
+    <div>
+      <div class="stock-name">{{ s.name }}</div>
+      <div class="sold-note">Sold in Round {{ s.sold_round }} at &euro;{{ s.sold_price }}</div>
+    </div>
+  </div>
+  {{ endfor }}
+</div>
+
+{{ next_button }}
+{{ endblock }}

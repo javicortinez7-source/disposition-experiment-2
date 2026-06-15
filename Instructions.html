@@ -1,0 +1,60 @@
+{{ block title }}
+How the exercise works
+{{ endblock }}
+
+{{ block styles }}
+<style>
+.card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:20px 24px; margin-bottom:16px; max-width:680px; }
+.badge-info { display:inline-block; background:#E6F1FB; color:#0C447C; padding:3px 12px; border-radius:14px; font-size:12px; font-weight:600; margin-bottom:10px; }
+.info-box { background:#E6F1FB; border-left:3px solid #185FA5; border-radius:0 8px 8px 0; padding:12px 16px; margin:14px 0; font-size:14px; color:#0C447C; }
+table.stocks { width:100%; border-collapse:collapse; font-size:14px; margin:14px 0; }
+table.stocks th { text-align:left; padding:8px 10px; background:#F4F6F8; font-weight:500; color:#666; font-size:13px; }
+table.stocks td { padding:10px 10px; border-bottom:1px solid #eee; }
+.badge-gain { background:#EAF3DE; color:#27500A; padding:2px 10px; border-radius:14px; font-size:12px; font-weight:600; }
+.badge-loss { background:#FDECEA; color:#A32D2D; padding:2px 10px; border-radius:14px; font-size:12px; font-weight:600; }
+.stock-name { font-weight:500; }
+.stock-sub { color:#888; font-size:12px; }
+.otree-btn-next { margin-top:8px; }
+</style>
+{{ endblock }}
+
+{{ block content }}
+<div class="card">
+  <span class="badge-info">Part 2 of 3 &mdash; Investment Exercise</span>
+  <h3>How the exercise works</h3>
+
+  <div class="info-box">
+    You have a virtual portfolio with <strong>4 stocks</strong> and
+    <strong>{{ shares }} shares each</strong>. Over <strong>6 rounds</strong>,
+    prices will change and you will decide whether to <strong>Sell</strong>
+    or <strong>Hold</strong> each stock. Once you sell a stock, you cannot buy it back.
+  </div>
+
+  <p>Manage your portfolio however feels right. There are no correct decisions
+     &mdash; just choose based on what you see.</p>
+
+  <p><strong>Your starting portfolio:</strong></p>
+  <table class="stocks">
+    <tr><th>Stock</th><th>Bought at</th><th>Current</th><th>P&amp;L</th></tr>
+    {{ for s in stocks }}
+    <tr>
+      <td>
+        <div class="stock-name">{{ s.name }}</div>
+        <div class="stock-sub">{{ s.sector }} &middot; {{ shares }} shares</div>
+      </td>
+      <td>&euro;{{ s.buy }}</td>
+      <td>&euro;{{ s.current }}</td>
+      <td>
+        {{ if s.is_gain }}
+          <span class="badge-gain">+{{ s.pnl_eur }}&euro; (+{{ s.pnl_pct }}%)</span>
+        {{ else }}
+          <span class="badge-loss">{{ s.pnl_eur }}&euro; ({{ s.pnl_pct }}%)</span>
+        {{ endif }}
+      </td>
+    </tr>
+    {{ endfor }}
+  </table>
+
+  {{ next_button }}
+</div>
+{{ endblock }}

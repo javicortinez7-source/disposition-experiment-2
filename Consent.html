@@ -1,0 +1,32 @@
+{{ block title }}
+Investment Decision Study
+{{ endblock }}
+
+{{ block styles }}
+<style>
+.card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:20px 24px; margin-bottom:16px; max-width:680px; }
+.badge-info { display:inline-block; background:#E6F1FB; color:#0C447C; padding:3px 12px; border-radius:14px; font-size:12px; font-weight:600; margin-bottom:10px; }
+.info-box { background:#F4F6F8; border-radius:8px; padding:12px 16px; margin:14px 0; font-size:14px; color:#444; }
+.form-check { border:1px solid #185FA5; border-radius:8px; padding:12px 16px; background:#E6F1FB; margin-top:14px; }
+.form-check label { font-size:14px; color:#0C447C; margin-left:8px; }
+.otree-btn-next { margin-top:16px; }
+</style>
+{{ endblock }}
+
+{{ block content }}
+<div class="card">
+  <span class="badge-info">Maastricht University &middot; MBA Research</span>
+  <h3>Investment Decision Study</h3>
+  <p>You will manage a <strong>virtual stock portfolio</strong> and make buy/hold/sell
+     decisions over 6 rounds. <strong>No real money is involved.</strong>
+     The study takes about <strong>10&ndash;12 minutes</strong>.</p>
+
+  <div class="info-box">
+    Participation is voluntary and fully anonymous. By continuing, you confirm
+    that you are 18 years of age or older.
+  </div>
+
+  {{ formfields }}
+  {{ next_button }}
+</div>
+{{ endblock }}

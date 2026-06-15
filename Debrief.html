@@ -1,0 +1,40 @@
+{{ block title }}
+Thank you for participating!
+{{ endblock }}
+
+{{ block styles }}
+<style>
+.card { background:#fff; border:1px solid #e0e0e0; border-radius:10px; padding:24px 28px; margin-bottom:16px; max-width:680px; text-align:center; }
+.check { font-size:32px; color:#27500A; margin-bottom:8px; }
+.result-box { background:#F4F6F8; border-radius:8px; padding:14px 18px; margin:18px 0; text-align:left; font-size:14px; }
+.result-box p { margin:6px 0; }
+.muted { color:#666; font-size:13px; text-align:left; line-height:1.6; }
+</style>
+{{ endblock }}
+
+{{ block content }}
+<div class="card">
+  <div class="check">&#10003;</div>
+  <h3>Thank you for participating!</h3>
+  <p>Your data has been saved.</p>
+
+  <div class="result-box">
+    <p><strong>Your result:</strong></p>
+    <p>You sold <strong>{{ pgr_pct }}%</strong> of your gaining positions and
+       <strong>{{ plr_pct }}%</strong> of your losing positions.</p>
+    <p><strong>{{ message }}</strong></p>
+  </div>
+
+  <p class="muted">
+    This study investigates the <strong>disposition effect</strong> &mdash; the
+    well-documented tendency to sell winning investments too soon and hold
+    losing ones too long. Your trading decisions help us understand the
+    psychological mechanisms behind this bias.
+  </p>
+  <p class="muted">
+    All data is completely anonymous and used solely for academic research at
+    Maastricht University School of Business and Economics. You may now close
+    this window.
+  </p>
+</div>
+{{ endblock }}
